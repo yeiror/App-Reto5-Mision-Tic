@@ -1,0 +1,37 @@
+
+----------------------------- 2 PUNTO -----------------
+SELECT p.ID_Proyecto AS ID, Constructora, Ciudad, p.Clasificacion, t.Estrato, 
+(l.Nombre||' '||l.Primer_Apellido|| ' '|| l.Segundo_Apellido) as LIDER 
+FROM Proyecto p 
+INNER JOIN Tipo t ON p.ID_Tipo = t.ID_Tipo 
+INNER JOIN Lider l on p.ID_Lider = l.ID_Lider 
+WHERE Banco_Vinculado ='Davivienda' 
+ORDER BY p.Fecha_Inicio DESC, p.Ciudad asc, p.Constructora
+
+----------------------------- 3 PUNTO -----------------
+SELECT p.Ciudad, p.Clasificacion, COUNT(p.ID_Proyecto) as TOTAL, 
+min(p.Fecha_Inicio) as VIEJO, max(Fecha_Inicio) as RECIENTE 
+from Proyecto p WHERE Clasificacion in ('Casa Campestre','Condominio')
+GROUP BY Ciudad, Clasificacion 
+
+------------------------------ 4 PUNTO -----------------
+
+SELECT  p.ID_Proyecto , sum(c.Cantidad*mc.Precio_Unidad)as VALOR
+FROM Proyecto p 
+INNER JOIN Compra c on c.ID_Proyecto = p.ID_Proyecto
+INNER JOIN MaterialConstruccion mc on mc.ID_MaterialConstruccion =c.ID_MaterialConstruccion
+WHERE c.Pagado ='Si'
+GROUP BY p.ID_Proyecto 
+HAVING SUM(c.Cantidad*mc.Precio_Unidad) > 50000
+ORDER BY VALOR DESC
+
+------------------------------ 5 PUNTO -----------------
+
+SELECT (l.Nombre||' '||l.Primer_Apellido|| ' '|| l.Segundo_Apellido) as LIDER,
+sum(mc.Precio_Unidad*c.Cantidad) as VALOR
+FROM Lider l inner join Proyecto p on l.ID_Lider =p.ID_Lider 
+INNER JOIN Compra c on c.ID_Proyecto = p.ID_Proyecto 
+INNER JOIN MaterialConstruccion mc  on mc.ID_MaterialConstruccion =c.ID_MaterialConstruccion
+GROUP BY Lider 
+ORDER BY VALOR ASC
+LIMIT 10
