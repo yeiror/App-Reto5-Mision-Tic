@@ -33,9 +33,9 @@ public class FrmConsultas extends JFrame {
         var tbd = new JTabbedPane();
         getContentPane().add(tbd, BorderLayout.CENTER);
 
-        var panelLider = new JPanel();
-        panelLider.setLayout(new BorderLayout());
-        tbd.addTab("Consulta Proyectos por Clasificaciones", panelLider);
+        var panelBanco = new JPanel();
+        panelBanco.setLayout(new BorderLayout());
+        tbd.addTab("Consulta Proyectos por Clasificaciones", panelBanco);
 
         var panelEntrada= new JPanel();
         panelEntrada.add(new JLabel("Banco"));
@@ -50,9 +50,9 @@ public class FrmConsultas extends JFrame {
         
         
         panelEntrada.add(btnConsultaLider);
-        panelLider.add(panelEntrada, BorderLayout.PAGE_START);
+        panelBanco.add(panelEntrada, BorderLayout.PAGE_START);
 
-        panelLider.add(new JScrollPane(tabla),BorderLayout.CENTER);
+        panelBanco.add(new JScrollPane(tabla),BorderLayout.CENTER);
 
     //---------------------------- Segundo Módulo ----------------
     var panelPagados = new JPanel();
@@ -74,11 +74,41 @@ public class FrmConsultas extends JFrame {
     panelPagados.add(panelEntrada2, BorderLayout.PAGE_START);
 
     panelPagados.add(new JScrollPane(tabla2),BorderLayout.CENTER);
-        
+
+//--------------------Tercer Módulo
+
+    var panelLider = new JPanel();
+    panelLider.setLayout(new BorderLayout());
+    tbd.addTab("Consulta Total Gastado por Proyectos", panelLider);
+
+    var panelEntrada3= new JPanel();
+    panelEntrada3.add(new JLabel("Superior a: "));
+
+    //JButton
+    var btnLideres = new JButton("Consultar");
+    //Evento del JButton
+    btnLideres.addActionListener(e -> listarlideres());
+
+    panelEntrada3.add(btnLideres);
+    panelLider.add(panelEntrada3, BorderLayout.PAGE_START);
+
+    panelLider.add(new JScrollPane(tabla3),BorderLayout.CENTER);
+            
     }
 
 //---------------- Métodos de Eventos de Botones
 
+    private void listarlideres() {
+        try {
+            var lista3 = controllerReport.listarComprasDeLider();
+            var tableModel = new Lideres();
+            tableModel.setData(lista3);
+            tabla3.setModel(tableModel);
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+            
+        }
+    }
     private void listarpagados(String pagado) {
         Double pagadoDouble=0D;
         pagadoDouble=Double.parseDouble(pagado);
