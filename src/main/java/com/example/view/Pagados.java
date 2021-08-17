@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.example.model.vo.ProyectoBancoVo;
+import com.example.model.vo.PagadoPorProyectoVo;
 
-
-public class ProyectoBanco extends AbstractTableModel{
-    private List<ProyectoBancoVo> data;
+public class Pagados extends AbstractTableModel {
+    private List<PagadoPorProyectoVo> data;
     
-    public void setData(List<ProyectoBancoVo> data) {
+    public void setData(List<PagadoPorProyectoVo> data) {
         this.data = data;
     }
       
@@ -21,15 +20,7 @@ public class ProyectoBanco extends AbstractTableModel{
             case 0:
                 return Integer.class;
             case 1:
-                return String.class;
-            case 2:
-                return String.class;
-            case 3:
-                return String.class;
-            case 4:
                 return Integer.class;
-            case 5:
-                return String.class;
         } 
         return super.getColumnClass(columnIndex);
     }
@@ -38,19 +29,10 @@ public class ProyectoBanco extends AbstractTableModel{
     public String getColumnName(int column) {
         // TODO Auto-generated method stub
         switch(column){
-
             case 0:
-                return "ID";
+                return "ID_PROYECTO";
             case 1:
-                return "CONSTRUCTORA";
-            case 2:
-                return "CIUDAD";
-            case 3:
-                return "CLASIFICACION";
-            case 4:
-                return "ESTRATO";
-            case 5:
-                return "LIDER";
+                return "VALOR";
         } 
         return super.getColumnName(column);
     }
@@ -64,7 +46,7 @@ public class ProyectoBanco extends AbstractTableModel{
     @Override
     public int getColumnCount() {
         
-        return 6;
+        return 2;
     }
 
     @Override
@@ -75,16 +57,7 @@ public class ProyectoBanco extends AbstractTableModel{
             case 0:
                 return project.getId();
             case 1:
-                return project.getConstructora();
-            case 2:
-                return project.getCiudad();
-            case 3:
-                return project.getClasificacion();
-            case 4:
-                return project.getEstrato();
-            case 5:
-                return project.getLider();
-
+                return project.getValor();
         } 
         return null;
         

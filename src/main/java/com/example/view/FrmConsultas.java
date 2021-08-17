@@ -13,12 +13,14 @@ import com.example.controller.ReportesController;
 
 public class FrmConsultas extends JFrame {
     private ReportesController controllerReport;
-    private JTable tabla;
+    private JTable tabla,tabla2,tabla3;
 
     public FrmConsultas() {
         
         controllerReport = new ReportesController();
-        tabla = new JTable(); 
+        tabla = new JTable();
+        tabla2 = new JTable(); 
+        tabla3 = new JTable(); 
         initGUI();
         setLocationRelativeTo(null);
         
@@ -52,6 +54,45 @@ public class FrmConsultas extends JFrame {
 
         panelLider.add(new JScrollPane(tabla),BorderLayout.CENTER);
 
+    //---------------------------- Segundo Módulo ----------------
+    var panelPagados = new JPanel();
+    panelPagados.setLayout(new BorderLayout());
+    tbd.addTab("Consulta Total Gastado por Proyectos", panelPagados);
+
+    var panelEntrada2= new JPanel();
+    panelEntrada2.add(new JLabel("Superior a: "));
+    var txtPagado = new JTextField(15);
+    panelEntrada2.add(txtPagado);
+
+    //JButton
+    var btnPagados = new JButton("Consultar");
+    //Evento del JButton
+    btnPagados.addActionListener(e -> listarpagados(
+    txtPagado.getText().trim()));
+    
+    panelEntrada2.add(btnPagados);
+    panelPagados.add(panelEntrada2, BorderLayout.PAGE_START);
+
+    panelPagados.add(new JScrollPane(tabla2),BorderLayout.CENTER);
+        
+    }
+
+//---------------- Métodos de Eventos de Botones
+
+    private void listarpagados(String pagado) {
+        Double pagadoDouble=0D;
+        pagadoDouble=Double.parseDouble(pagado);
+
+        try {
+            var lista = controllerReport.listarTotalPagado(pagadoDouble);
+            var tableModel = new Pagados();
+            tableModel.setData(lista);
+            tabla2.setModel(tableModel);
+        }catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
     }
     private void listarporBancos(String opc1)
     {
