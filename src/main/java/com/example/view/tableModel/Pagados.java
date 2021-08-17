@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.view.tableModel;
 
 import java.util.List;
 

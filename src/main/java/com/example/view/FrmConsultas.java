@@ -6,8 +6,10 @@ import java.awt.*;
 import java.sql.SQLException;
 
 import javax.swing.*;
-import com.example.view.ProyectoBanco;
 
+import com.example.view.tableModel.Lideres;
+import com.example.view.tableModel.Pagados;
+import com.example.view.tableModel.ProyectoBanco;
 import com.example.controller.ReportesController;
 
 

@@ -6,7 +6,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        var view = new FrmConsultas();
+        var view = new FrmProyecto();
         view.setVisible(true);
     }
 }
